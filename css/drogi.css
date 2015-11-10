@@ -1,0 +1,12 @@
+#rysuj .btn-outline {
+    border: solid 2px #18BC9C;
+    color: #18BC9C;
+}
+#rysuj .btn-outline:hover, #rysuj .btn-outline:focus, #rysuj .btn-outline:active, #rysuj .btn-outline.active {
+    border: solid 2px #2C3E50;
+    color: #2C3E50;
+    background: #fff;
+}
+.form-control {
+	background-color: #fff !important;
+}

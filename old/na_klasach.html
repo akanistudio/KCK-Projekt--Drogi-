@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+<button name=draw onclick="draw()">Rysuj</button>
+<canvas id="map" width="1000" height="700" style="border:1px solid #000000;"></canvas>
+
+<script>
+
+function generuj_droge(ax,ay,control1x,control1y,control2x,control2y,bx,by) {
+	ctx.bezierCurveTo(
+		control1x,
+		control1y,
+		control2x,
+		control2y,
+		bx,
+		by
+	);
+	console.log("GENERUJ DROGE: " + ax + "," + ay + "," + control1x + "," + control1y + "," + control2x + "," + control2y + "," + bx + "," + by)
+}
+function punkt(ax1,ay1) {
+	console.log("PUNKT: " + ax1 + "," + ay1);
+	this.ax1 = ax1;
+	this.ay1 = ay1;
+	this.ax = function() {
+        return this.ax1;
+    };
+    this.ay = function() {
+        return this.ay1;
+    };
+}
+function generuj_kierunek(i) {
+	var rand;
+	rand = Math.floor((Math.random() * 4) + 1);
+	if(punkty[i].ax()>200 && rand==1) this.kierunek = "north";
+	else if(punkty[i].ax()<500 && rand==2) this.kierunek "south";
+	else if(punkty[i].ay()<800 && rand==3) this.kierunek "east";
+	else if(punkty[i].ay()>200 && rand==4) this.kierunek "west";
+	else generuj_kierunek(i);
+	this.zwroc_kierunek = function() {
+        return this.kierunek;
+    };
+}
+
+var ruchy = new Array(15);
+var kierunki = new Array(15);
+var punkty = new Array(15);
+
+/*
+for(i=0;i<20;i++) {
+	ruchy[i] = generuj_droge();
+	punkty[i] = punkt();
+}
+*/
+
+var c=document.getElementById("map");
+var ctx=c.getContext("2d");
+ctx.beginPath();
+
+ctx.moveTo(220,220);
+punkty[0] = new punkt(220,220);
+ruchy[0] = new generuj_droge(punkty[0].ax(),punkty[0].ay(),220,300,400,300,400,220);
+//wschód
+punkty[1] = new punkt(400,220);
+ruchy[1] = new generuj_droge(punkty[1].ax(),punkty[1].ay(),400,120,400,120,500,120);
+//południe
+punkty[2] = new punkt(500,120);
+ruchy[2] = new generuj_droge(punkty[1].ax(),punkty[1].ay(),600,120,600,120,600,220);
+
+ctx.stroke();
+
+
+</script>
+
+</body>

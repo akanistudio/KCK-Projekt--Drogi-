@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+<button name=draw onclick="draw()">Rysuj</button>
+<canvas id="map" width="800" height="800" style="border:1px solid #000000;"></canvas>
+
+<script>
+
+function generuj_droge(ax,ay) {
+	var control1x;
+	var control1y;
+	var bx;
+	var by;
+	var arcType = random(1,3);
+		switch(kierunki[kierunki.length - 1].zwroc_kierunek())
+		{
+		case "north":
+			if(arcType == 1)
+			{
+				control1x = ax - 50;
+				control1y = ay - 50;
+				bx = ax;
+				by = ay - 100;
+			}
+			else if(arcType == 2)
+			{
+				control1x = ax;
+				control1y = ay - 50;
+				bx = ax;
+				by = ay - 100;
+			}
+			else
+			{
+				control1x = ax + 50;
+				control1y = ay - 50;
+				bx = ax;
+				by = ay - 100;
+			}
+			break;
+		case "south":
+			if(arcType == 1)
+			{
+				control1x = ax - 50;
+				control1y = ay +	 50;
+				bx = ax;
+				by = ay + 100;
+			}
+			else if(arcType == 2)
+			{
+				control1x = ax;
+				control1y = ay + 50;
+				bx = ax;
+				by = ay + 100;
+			}
+			else
+			{
+				control1x = ax + 50;
+				control1y = ay + 50;
+				bx = ax;
+				by = ay + 100;
+			}
+			break;
+		case "east":
+			if(arcType == 1)
+			{
+				control1x = ax + 50;
+				control1y = ay - 50;
+				bx = ax + 100;
+				by = ay;
+			}
+			else if(arcType == 2)
+			{
+				control1x = ax + 50;
+				control1y = ay;
+				bx = ax + 100;
+				by = ay;
+			}
+			else
+			{
+				control1x = ax + 50;
+				control1y = ay + 50;
+				bx = ax + 100;
+				by = ay;
+			}
+			break;
+		case "west":
+			if(arcType == 1)
+			{
+				control1x = ax - 50;
+				control1y = ay - 50;
+				bx = ax - 100;
+				by = ay;
+			}
+			else if(arcType == 2)
+			{
+				control1x = ax - 50;
+				control1y = ay;
+				bx = ax - 100;
+				by = ay;
+			}
+			else
+			{
+				control1x = ax - 50;
+				control1y = ay + 50;
+				bx = ax - 100;
+				by = ay;
+			}
+			break;
+		case "north-west":
+			if(arcType == 1)
+			{
+				control1x = ax - 100;
+				control1y = ay;
+				bx = ax - 100;
+				by = ay - 100;
+			}
+			else if(arcType == 2)
+			{
+				control1x = ax - 50;
+				control1y = ay - 50;
+				bx = ax - 100;
+				by = ay - 100;
+			}
+			else
+			{
+				control1x = ax;
+				control1y = ay - 100;
+				bx = ax - 100;
+				by = ay - 100;
+			}
+			break;
+		case "north-east":
+			if(arcType == 1)
+			{
+				control1x = ax;
+				control1y = ay - 100;
+				bx = ax + 100;
+				by = ay - 100;
+			}
+			else if(arcType == 2)
+			{
+				control1x = ax + 50;
+				control1y = ay - 50;
+				bx = ax + 100;
+				by = ay - 100;
+			}
+			else
+			{
+				control1x = ax + 100;
+				control1y = ay;
+				bx = ax + 100;
+				by = ay - 100;
+			}
+			break;
+		case "south-west":
+			if(arcType == 1)
+			{
+				control1x = ax - 100;
+				control1y = ay;
+				bx = ax - 100;
+				by = ay + 100;
+			}
+			else if(arcType == 2)
+			{
+				control1x = ax - 50;
+				control1y = ay + 50;
+				bx = ax - 100;
+				by = ay + 100;
+			}
+			else
+			{
+				control1x = ax;
+				control1y = ay + 100;
+				bx = ax - 100;
+				by = ay + 100;
+			}
+			break;
+		case "south-east":
+			if(arcType == 1)
+			{
+				control1x = ax + 100;
+				control1y = ay;
+				bx = ax + 100;
+				by = ay + 100;
+			}
+			else if(arcType == 2)
+			{
+				control1x = ax + 50;
+				control1y = ay + 50;
+				bx = ax + 100;
+				by = ay + 100;
+			}
+			else
+			{
+				control1x = ax;
+				control1y = ay + 100;
+				bx = ax + 100;
+				by = ay + 100;
+			}
+			break;
+	};
+	ctx.quadraticCurveTo(
+		control1x,
+		control1y,
+		bx,
+		by
+	);
+		ctx.fillRect(bx - 5, by - 5, 10, 10);
+	visited[bx/100 + (8*by/100)]++;
+	this.bx1 = bx;
+	this.by1 = by;
+	this.controlx = control1x;
+	this.controly = control1y;
+	
+	for(i = 0; i < punkty.length; i++)
+	{
+		if(punkty[i].ax() == bx && punkty[i].ay() == by)
+		{
+			punkty[i].dodajDroge[ruchy.length];
+		}
+	}
+	
+	this.zwrocX = function() {
+		return this.bx1;
+	}
+	this.zwrocY = function() {
+		return this.by1;
+	}
+	this.zwrocXKontrolny = function() {
+		return this.controlx;
+	}
+	this.zwrocYKontrolny = function() {
+		return this.controlx;
+	}
+	console.log("GENERUJ DROGE: " + ax + "," + ay + "," + control1x + "," + control1y + "," + bx + "," + by);
+}
+
+function punkt(ax1,ay1) {
+	this.ax1 = ax1;
+	this.ay1 = ay1;
+	this.drogi = [];
+	this.skrzyz = [];
+	this.obiekty = [];
+	this.dodajObiekt = function(idObiektu) {
+		this.obiekty[this.obiekty.length] = idObiektu;
+	}
+	this.dodajSkrzyz = function(idSkrzyz) {
+		this.skrzyz[this.skrzyz.length] = idSkrzyz;
+	}
+	this.dodajDroge = function(idDrogi) {
+		this.drogi[this.drogi.length] = idDrogi;
+	}
+	this.ax = function() {
+        return this.ax1;
+    };
+    this.ay = function() {
+        return this.ay1;
+    };
+	console.log("PUNKT: " + this.ax1 + "," + this.ay1);
+}
+
+function generuj_kierunek(i) {
+	var rand;
+	var tempX;
+	var tempY;
+	var counter = 0;
+	while(true)
+	{	
+		counter++;
+		rand = Math.floor((Math.random() * 8) + 1);
+		switch(rand)
+		{
+			case 1:
+				if(punkty[i].ay() > 100 && kierunki.length < 1) 
+				{
+					this.kierunek = "north";
+					tempX = (punkty[i].ax())/100;
+					tempY = (punkty[i].ay() - 100)/100;
+				}
+				else if(punkty[i].ay() > 100 && kierunki[kierunki.length - 1].zwroc_kierunek() != "south")
+				{
+					this.kierunek = "north";
+					tempX = (punkty[i].ax())/100;
+					tempY = (punkty[i].ay() - 100)/100;
+				}
+			break; 
+			case 2:
+				if(punkty[i].ay() < 700 && kierunki.length < 1) 
+				{
+					this.kierunek = "south";
+					tempX = (punkty[i].ax())/100;
+					tempY = (punkty[i].ay() + 100)/100;
+				}
+				else if(punkty[i].ay() < 700 && kierunki[kierunki.length - 1].zwroc_kierunek() != "north")
+				{
+					this.kierunek = "south";
+					tempX = (punkty[i].ax())/100;
+					tempY = (punkty[i].ay() + 100)/100;
+				}
+			break;
+			case 3:
+				if(punkty[i].ax() < 700 && kierunki.length < 1)
+				{
+					this.kierunek = "east";
+					tempX = (punkty[i].ax() + 100)/100;
+					tempY = (punkty[i].ay())/100;
+				}
+				else if(punkty[i].ax() < 700 && kierunki[kierunki.length - 1].zwroc_kierunek() != "west")
+				{
+					this.kierunek = "east";
+				}
+				tempX = (punkty[i].ax() + 100)/100;
+				tempY = (punkty[i].ay())/100;
+			break;
+			case 4: 
+				if(punkty[i].ax() > 100 && kierunki.length < 1)
+				{
+					this.kierunek = "west";
+				}
+				else if(punkty[i].ax() > 100 && kierunki[kierunki.length - 1].zwroc_kierunek() != "east")
+				{
+					this.kierunek = "west";
+				}
+				tempX = (punkty[i].ax() - 100)/100;
+				tempY = (punkty[i].ay())/100;
+			break;
+			case 5:
+				if(punkty[i].ay() > 100 && punkty[i].ax() > 100 && kierunki.length < 1)
+				{
+					this.kierunek = "north-west";
+				}
+				else if(punkty[i].ay() > 100 && punkty[i].ax() > 100 && kierunki[kierunki.length - 1].zwroc_kierunek() != "south-east")
+				{
+					this.kierunek = "north-west";
+				}
+				tempX = (punkty[i].ax() - 100)/100;
+				tempY = (punkty[i].ay() - 100)/100;
+			break;
+			case 6:
+				if(punkty[i].ay() > 100 && punkty[i].ax() < 700 && kierunki.length < 1)
+				{
+					this.kierunek = "north-east";
+					tempX = (punkty[i].ax() + 100)/100;
+					tempY = (punkty[i].ay() - 100)/100;
+				}
+				else if(punkty[i].ay() > 100 && punkty[i].ax() < 700 && kierunki[kierunki.length - 1].zwroc_kierunek() != "south-west")
+				{
+					this.kierunek = "north-east";
+					tempX = (punkty[i].ax() + 100)/100;
+					tempY = (punkty[i].ay() - 100)/100;
+				}
+			break;
+			case 7:
+				if(punkty[i].ay() < 700 && punkty[i].ax() > 100 && kierunki.length < 1)
+				{
+					this.kierunek = "south-west";
+				}
+				else if(punkty[i].ay() < 700 && punkty[i].ax() > 100 && kierunki[kierunki.length - 1].zwroc_kierunek() != "north-east")
+				{
+					this.kierunek = "south-west";
+				}
+				tempX = (punkty[i].ax() - 100)/100;
+				tempY = (punkty[i].ay() + 100)/100;
+			break;
+			case 8:
+				if(punkty[i].ay() < 700 && punkty[i].ax() < 700 && kierunki.length < 1)
+				{
+					this.kierunek = "south-east";
+				}
+				else if(punkty[i].ay() < 700 && punkty[i].ax() < 700 && kierunki[kierunki.length - 1].zwroc_kierunek() != "north-west")
+				{
+					this.kierunek = "south-east";	
+				}
+			tempX = (punkty[i].ax() + 100)/100;
+			tempY = (punkty[i].ay() + 100)/100;
+			break;
+		}
+		if((this.kierunek && visited[tempX + 8*tempY] > 0 && counter > 20) || (this.kierunek && visited[tempX + 8*tempY] <= 0))
+			break;
+	} 
+	this.zwroc_kierunek = function() {
+        return this.kierunek;
+    };
+	console.log("Kierunek: " + this.kierunek + ", " + tempX + ", " + tempY);
+}
+
+function generuj_skrzyzowania(i)
+{
+	this.punktX = punkty[i].ax();
+	this.punktY = punkty[i].ay();
+	this.punktID= i;
+	this.direction = random(1,8);
+	
+	switch(this.direction)
+	{
+		case 1:
+			ctx.moveTo(this.punktX, this.punktY - 15);
+			ctx.lineTo(this.punktX, this.punktY);
+		break;
+		case 2:
+			ctx.moveTo(this.punktX - 15, this.punktY);
+			ctx.lineTo(this.punktX, this.punktY);
+		break;
+		case 3:
+			ctx.moveTo(this.punktX - 15, this.punktY - 15);
+			ctx.lineTo(this.punktX, this.punktY);
+		break;
+		case 4:
+			ctx.moveTo(this.punktX - 15, this.punktY + 15);
+			ctx.lineTo(this.punktX, this.punktY);
+		break;
+		case 5:
+			ctx.moveTo(this.punktX + 15, this.punktY);
+			ctx.lineTo(this.punktX, this.punktY);
+		break;
+		case 6:
+			ctx.moveTo(this.punktX, this.punktY + 15);
+			ctx.lineTo(this.punktX, this.punktY);
+		break;
+		case 7:
+			ctx.moveTo(this.punktX + 15, this.punktY - 15);
+			ctx.lineTo(this.punktX, this.punktY);
+		break;
+		case 8:
+			ctx.moveTo(this.punktX + 15, this.punktY + 15);
+			ctx.lineTo(this.punktX, this.punktY);
+		break;
+	}
+	punkty[i].dodajSkrzyz(skrzyzowania.length);
+}
+
+function generuj_obiekty(i) {
+	this.direction = random(1,8);
+	switch(this.direction)
+	{
+		case 1:
+			this.posX = punkty[i].ax() - 10;
+			this.posY = punkty[i].ay() - 35;
+		break;
+		case 2:
+			this.posX = punkty[i].ax() + 15;
+			this.posY = punkty[i].ay() - 35;
+		break;
+		case 3:
+			this.posX = punkty[i].ax() + 15;
+			this.posY = punkty[i].ay() - 10;
+		break;
+		case 4:
+			this.posX = punkty[i].ax() + 15;
+			this.posY = punkty[i].ay() + 15;
+		break;
+		case 5:
+			this.posX = punkty[i].ax() - 10;
+			this.posY = punkty[i].ay() + 15;
+		break;
+		case 6:
+			this.posX = punkty[i].ax() - 35;
+			this.posY = punkty[i].ay() + 15;
+		break;
+		case 7:
+			this.posX = punkty[i].ax() - 35;
+			this.posY = punkty[i].ay() - 10;
+		break;
+		case 8:
+			this.posX = punkty[i].ax() - 35;
+			this.posY = punkty[i].ay() - 35;
+		break;
+	};
+	punkty[i].dodajObiekt(obiekty.length);
+	
+	this.type = random(0,19);
+	ctx.drawImage(imageArray[this.type], this.posX, this.posY, 20, 20);
+
+	this.getY = function() {
+		return this.posY;
+	}
+	this.getX = function() {
+		return this.posX;
+	}
+}
+
+var availableStructures = [
+		"img/DomBial.png", 
+		"img/DomZol.png",
+		"img/DomZiel.png",
+		"img/Drzewo.png",
+		"img/DrzewoBrz.png",
+		"img/DrzewoSwierk.png",
+		"img/FlagaCzer.png",
+		"img/FlagaNieb.png",
+		"img/FlagaZiel.png",
+		"img/FlagaZol.png",
+		"img/SkrzyniaCzar.png",
+		"img/SkrzyniaBr.png",
+		"img/SkrzyniaNieb.png",
+		"img/SkrzyniaZiel.png",
+		"img/WiatrakBraz.png",
+		"img/WiatrakNieb.png",
+		"img/WiatrakPom.png",
+		"img/ZnakCzerw.png",
+		"img/ZnakNieb.png",
+		"img/ZnakZol.png"
+];
+
+var imageArray = [];
+for(var i = 0; i < 20; i++)
+{
+	imageArray[i] = new Image();
+	imageArray[i].src = availableStructures[i];
+}
+
+function random(a, b)
+{
+  return Math.round(Math.random() * Math.abs(b - a) + a);
+}
+var c=document.getElementById("map");
+var ctx=c.getContext("2d");
+
+var dlugoscTrasy = random(15,20);
+	
+var ruchy = [];
+var kierunki = [];
+var punkty = [];
+var skrzyzowania = [];
+var obiekty = [];
+
+var startX = 100*random(1,7);
+var startY = 100*random(1,7);
+
+var visited = [];
+for(i = 0; i < 64; i++) {
+	visited[i] = 0;
+}
+ctx.strokeStyle = "black";
+ctx.beginPath();
+ctx.moveTo(startX,startY);
+ctx.fillRect(startX - 5, startY - 5, 10, 10);
+visited[startX/100 + 8*startY/100]++;
+punkty[punkty.length] = new punkt(startX, startY);
+for(i = 0; i < dlugoscTrasy; i++) {
+	kierunki[kierunki.length] = new generuj_kierunek(punkty.length - 1);
+	ruchy[ruchy.length] = new generuj_droge(punkty[punkty.length - 1].ax(), punkty[punkty.length - 1].ay());
+	punkty[punkty.length] = new punkt(ruchy[ruchy.length - 1].zwrocX(), ruchy[ruchy.length - 1].zwrocY());
+}
+ctx.stroke();
+for(i = 0; i < random(8,16); i++)
+{
+	skrzyzowania[skrzyzowania.length] = new generuj_skrzyzowania(random(1, punkty.length - 2));
+}
+
+for(i = 0; i < random(10,15); i++)
+{
+	obiekty[obiekty.length] = new generuj_obiekty(random(0, punkty.length - 1));
+}
+ctx.stroke();
+
+</script>
+
+</body>
