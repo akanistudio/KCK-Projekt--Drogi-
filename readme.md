@@ -2,7 +2,7 @@
 University project
 
 
-### How do I get set up? ###
+### How do I set it up? ###
 
 
 ```
